@@ -1,0 +1,23 @@
+import discord
+from discord.ext import commands
+
+
+# Create the bot instance with a command prefix and intents
+bot = commands.Bot(command_prefix=".")
+
+@bot.event
+async def on_ready():
+    print(f'Logged in as {bot.user}')
+
+@bot.event
+async def on_message(message):
+    if message.author == bot.user: 
+        return
+
+    if message.content == "hello":
+        await message.channel.send(f"Hello, {message.author}!")
+
+    await bot.process_commands(message)  # Process commands
+
+
+bot.run("token")
